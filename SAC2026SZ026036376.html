@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>证书验证 - SAC-2026-SZ-02-603637-6</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Roboto, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 12px;
+        }
+        
+        .cert-card {
+            background: white;
+            max-width: 750px;
+            width: 100%;
+            padding: 30px 25px;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.3);
+            position: relative;
+            transition: all 0.2s;
+        }
+        
+        /* 手机端优化 */
+        @media (max-width: 480px) {
+            .cert-card {
+                padding: 20px 16px;
+                border-radius: 24px;
+            }
+        }
+        
+        /* 装饰边框 */
+        .cert-card::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid #b22222;
+            border-radius: 18px;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        
+        @media (max-width: 480px) {
+            .cert-card::before {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+            }
+        }
+        
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #b22222;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .company-name {
+            font-size: clamp(22px, 6vw, 28px);
+            font-weight: 700;
+            color: #b22222;
+            letter-spacing: 1px;
+        }
+        
+        .company-sub {
+            font-size: clamp(12px, 3.5vw, 16px);
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .motto {
+            font-style: italic;
+            color: #b22222;
+            font-weight: 500;
+        }
+        
+        .status-badge {
+            background: #2e7d32;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(16px, 4vw, 20px);
+            box-shadow: 0 4px 8px rgba(46,125,50,0.2);
+            white-space: nowrap;
+        }
+        
+        .cert-title {
+            text-align: center;
+            font-size: clamp(22px, 6vw, 32px);
+            font-weight: 700;
+            color: #b22222;
+            margin: 10px 0 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 20px;
+            background: #f9fafb;
+            border-radius: 20px;
+            overflow: hidden;
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
+        
+        .info-table tr {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .info-table tr:last-child {
+            border-bottom: none;
+        }
+        
+        .info-table td {
+            padding: 14px 16px;
+            word-break: break-word;
+        }
+        
+        .info-table td:first-child {
+            font-weight: 600;
+            color: #2c3e50;
+            width: 110px;
+            background: #edf2f7;
+            white-space: nowrap;
+        }
+        
+        @media (max-width: 480px) {
+            .info-table td {
+                padding: 12px 10px;
+            }
+            .info-table td:first-child {
+                width: 90px;
+            }
+        }
+        
+        .info-table td:last-child {
+            color: #1e293b;
+            font-weight: 500;
+        }
+        
+        .code-box {
+            background: #f1f5f9;
+            padding: 16px 15px;
+            border-radius: 50px;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(14px, 3.5vw, 20px);
+            font-weight: 600;
+            text-align: center;
+            color: #0b3b5c;
+            border: 2px dashed #b22222;
+            margin: 20px 0 15px;
+            letter-spacing: 1px;
+            word-break: break-all;
+        }
+        
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            font-size: clamp(12px, 3vw, 14px);
+            color: #6b7280;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .stamp {
+            font-size: clamp(16px, 4vw, 22px);
+            font-weight: 700;
+            color: #b22222;
+            opacity: 0.7;
+            transform: rotate(-3deg);
+            border: 2px solid #b22222;
+            padding: 4px 12px;
+            border-radius: 30px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        .company-info {
+            text-align: right;
+            line-height: 1.4;
+        }
+        
+        .company-info .name {
+            font-weight: 600;
+            color: #b22222;
+        }
+    </style>
+</head>
+<body>
+<div class="cert-card">
+    <div class="header">
+        <div class="logo-area">
+            <span class="company-name">高创传动</span>
+            <span class="company-sub">
+                SERVOTRONIX · <span class="motto">always in motion</span>
+            </span>
+        </div>
+        <div class="status-badge">✅ 有效</div>
+    </div>
+
+    <div class="cert-title">代理授权证书</div>
+
+    <table class="info-table">
+        <tr><td>代理商</td><td>深圳市和为道科技有限公司</td></tr>
+        <tr><td>授权产品</td><td>Servotronix旋转伺服/直线驱动器/运动控制器</td></tr>
+        <tr><td>授权区域</td><td>深圳、惠州</td></tr>
+        <tr><td>授权期限</td><td>2026-01-01 至 2026-12-31</td></tr>
+    </table>
+
+    <div class="code-box">SAC-2026-SZ-02-603637-6</div>
+
+    <div class="footer">
+        <div class="stamp">SERVOTRONIX</div>
+        <div class="company-info">
+            <span class="name">高创传动科技开发（深圳）有限公司</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
